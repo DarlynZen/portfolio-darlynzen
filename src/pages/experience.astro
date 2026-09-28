@@ -1,0 +1,66 @@
+---
+const experiences = [
+  {
+    title: 'Desarrollo fullstack web',
+    subtitle: 'Frontend, backend y diseño de interfaces',
+    period: 'Diciembre 2025 - Presente',
+    description: 'Diseño y construyo interfaces web cuidando tanto la experiencia de quien las usa como la calidad del código que las sostiene.',
+    icon: 'code',
+    tags: ['Frontend', 'Backend', 'UI'],
+  },
+  {
+    title: 'Ingeniería de sistemas',
+    subtitle: 'Formación académica',
+    period: 'En formación',
+    description: 'Fortalezco mis bases en arquitectura, lógica y buenas prácticas para convertir problemas reales en soluciones mantenibles.',
+    icon: 'education',
+    tags: [],
+  },
+];
+---
+
+<section
+  id="experience"
+  class="relative box-border w-full scroll-mt-20 bg-deep-navy px-6 py-20 text-cold-white md:px-12 md:py-24"
+  aria-labelledby="experience-title"
+>
+  <div class="mx-auto w-full max-w-4xl">
+    <h2 id="experience-title" class="m-0 mb-10 font-melodrame text-5xl font-normal leading-tight sm:mb-12 sm:text-6xl">
+      Mi Experiencia
+    </h2>
+
+    <div class="flex flex-col gap-7 font-outfit sm:gap-8">
+      {experiences.map((experience, index) => (
+        <details class="group" open={index === 0}>
+          <summary class="flex cursor-pointer list-none items-start gap-4 rounded-lg py-1 text-left marker:content-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cornflower-blue sm:gap-5">
+            <span class="flex size-12 shrink-0 items-center justify-center rounded-full border border-solid border-dusk-blue/60 bg-midnight-black text-icy-blue sm:size-14" aria-hidden="true">
+              <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                {experience.icon === 'code' && <><path d="m7 7-5 5 5 5m10-10 5 5-5 5M14 4l-4 16" /></>}
+                {experience.icon === 'education' && <><path d="m2 9 10-5 10 5-10 5L2 9Zm4 2v6c4 3 8 3 12 0v-6M22 9v7" /></>}
+                {experience.icon === 'book' && <><path d="M12 5v15M3 4c4-1 7 0 9 2 2-2 5-3 9-2v14c-4-1-7 0-9 2-2-2-5-3-9-2V4Z" /></>}
+              </svg>
+            </span>
+
+            <span class="flex min-w-0 flex-1 flex-col gap-1 md:flex-row md:items-center md:justify-between md:gap-6">
+              <span class="min-w-0">
+                <span class="flex items-center gap-2 text-lg font-medium leading-6 text-cold-white group-hover:text-icy-blue">
+                  {experience.title}
+                  <svg class="size-4 shrink-0 text-cornflower-blue group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+                <span class="mt-1 block text-base font-light leading-6 text-blue-gray">{experience.subtitle}</span>
+              </span>
+              <span class="shrink-0 text-sm leading-6 text-blue-gray md:text-right">{experience.period}</span>
+            </span>
+          </summary>
+
+          <div class="mt-3 ml-16 sm:ml-19">
+            <p class="m-0 max-w-2xl text-base font-light leading-7 text-blue-gray">{experience.description}</p>
+            {experience.tags.length > 0 && <ul class="m-0 mt-3 flex list-none flex-wrap gap-x-4 gap-y-1 p-0 text-xs text-icy-blue" aria-label="Áreas de desarrollo">
+              {experience.tags.map((tag) => <li>{tag}</li>)}
+            </ul>}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

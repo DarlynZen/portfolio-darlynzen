@@ -1,11 +1,36 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import IntroTerminal from '../components/react/IntroTerminal';
+import ClickSpark from '../components/react/ClickSpark';
+import Navbar from '../components/astro/Navbar.astro';
+import Inicio from './inicio.astro';
+import Experience from './experience.astro';
+import Proyectos from './proyectos.astro';
+import About from './about.astro';
+import Contacto from './contacto.astro';
+import Footer from './footer.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<script is:inline>
+		(() => {
+			document.documentElement.classList.add('terminal-intro-active');
+			// Fail open if the React bundle cannot hydrate.
+			const fallback = setTimeout(() => document.documentElement.classList.remove('terminal-intro-active'), 8000);
+			window.addEventListener('terminal-intro:ready', () => clearTimeout(fallback), { once: true });
+		})();
+	</script>
+	<IntroTerminal client:load />
+	<ClickSpark client:load sparkSize={8} sparkRadius={15} sparkCount={7} duration={900} extraScale={0.9} sparkColor="#9151fc" />
+	<div id="portfolio-content" class="min-h-full min-w-0 outline-none" tabindex={-1}>
+	<Navbar />
+	<main class="min-w-0">
+		<Inicio />
+		<Experience />
+		<Proyectos />
+		<About />
+		<Contacto />
+	</main>
+	<Footer />
+	</div>
 </Layout>

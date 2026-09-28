@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Outfit:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+
+/* Utilities only: preserve the existing site's base styles. */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* Tailwind v4 theme: palette from VISUAL_IDENTITY.md. */
+@theme {
+  --font-melodrame: 'Relationship of Melodrame', sans-serif;
+  --font-noto-sans: 'Noto Sans', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+  --font-dm-mono: 'DM Mono', monospace;
+  --color-midnight-black: #05091C;
+  --color-deep-navy: #091540;
+  --color-dusk-blue: #3D518C;
+  --color-persian-blue: #1B2CC1;
+  --color-cornflower-blue: #7692FF;
+  --color-icy-blue: #ABD2FA;
+  --color-cold-white: #F4F7FF;
+  --color-blue-gray: #AAB5D6;
+  --color-muted-blue-gray: #7180A5;
+  --color-light-blue-gray: #D1D9F0;
+  /* Keep all breakpoints in px so responsive variants sort consistently. */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 500px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* Semantic colors used by shared UI components. */
+@theme inline {
+  --color-background: var(--color-midnight-black);
+  --color-border: var(--color-dusk-blue);
+}
+
+
+/* fonts */
+@font-face {
+  font-family: 'Relationship of Melodrame';
+  src: url('/fonts/Relationship%20of%20m%C3%A9lodrame.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

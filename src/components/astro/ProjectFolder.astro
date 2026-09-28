@@ -1,0 +1,52 @@
+---
+interface Props {
+  title: string;
+  category: string;
+  description?: string;
+  technologies?: string[];
+  number?: number;
+  href?: string;
+  image?: string;
+  tone?: 'blue' | 'violet' | 'ice';
+}
+
+const { title, category, href, image, tone = 'blue' } = Astro.props;
+const tones = {
+  blue: 'from-dusk-blue via-deep-navy to-midnight-black',
+  violet: 'from-persian-blue/50 via-deep-navy to-midnight-black',
+  ice: 'from-icy-blue/40 via-dusk-blue to-deep-navy',
+};
+---
+
+<article class="w-full min-w-0 max-w-96 font-outfit">
+  <div class="overflow-hidden rounded-2xl border border-solid border-dusk-blue/40 bg-deep-navy p-1">
+    <div class:list={['relative h-56 overflow-hidden rounded-t-xl bg-linear-to-br', tones[tone]]}>
+      {image ? (
+        <img src={image} alt={`Vista previa de ${title}`} loading="lazy" decoding="async" class="h-full w-full object-cover" />
+      ) : (
+        <div class="flex h-full items-center justify-center text-icy-blue/60" aria-hidden="true">
+          <svg class="size-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m7 7-5 5 5 5m10-10 5 5-5 5M14 4l-4 16" />
+          </svg>
+        </div>
+      )}
+    </div>
+
+    <div class="relative -mt-7">
+      <svg class="absolute inset-x-0 top-0 h-8 w-full text-deep-navy" viewBox="0 0 400 32" preserveAspectRatio="none" fill="currentColor" aria-hidden="true" focusable="false">
+        <path d="M0 20C0 9 9 0 20 0H170C182 0 189 6 193 15C197 24 204 28 218 28H380C391 28 400 30 400 32H0Z" />
+      </svg>
+      <p class="relative m-0 box-border h-8 w-2/5 truncate px-4 pt-2 text-xs leading-4 text-blue-gray" title={category}>{category}</p>
+      <div class="relative rounded-b-xl bg-deep-navy px-4 pt-3 pb-4">
+        <h3 class="m-0 text-lg font-medium leading-6 text-cold-white">
+          {href ? (
+            <a href={href} class="flex min-h-8 items-center justify-between gap-3 rounded-sm text-inherit no-underline hover:text-icy-blue focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cornflower-blue">
+              <span>{title}</span>
+              <svg class="size-4 shrink-0 text-cornflower-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </a>
+          ) : title}
+        </h3>
+      </div>
+    </div>
+  </div>
+</article>

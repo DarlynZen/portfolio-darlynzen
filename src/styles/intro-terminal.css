@@ -1,0 +1,81 @@
+html.terminal-intro-active { overflow: hidden; }
+html.terminal-intro-active #portfolio-content { visibility: hidden; }
+html.terminal-intro-revealing #portfolio-content { visibility: visible; }
+
+#terminal-intro {
+  --intro-midnight: #05091c;
+  --intro-navy: #091540;
+  --intro-dusk: #3d518c;
+  --intro-accent: #7692ff;
+  --intro-ice: #abd2fa;
+  --intro-text: #f4f7ff;
+  --intro-secondary: #aab5d6;
+  --intro-muted: #7180a5;
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  place-items: center;
+  overflow-y: auto;
+  padding: 24px 16px;
+  background: var(--intro-midnight);
+  color: var(--intro-text);
+  opacity: 1;
+  transition: opacity 250ms cubic-bezier(.23, 1, .32, 1);
+  scrollbar-color: var(--intro-dusk) var(--intro-midnight);
+}
+html.terminal-intro-active #terminal-intro { display: grid; }
+#terminal-intro.is-leaving { opacity: 0; }
+#terminal-intro, #terminal-intro * { box-sizing: border-box; }
+#terminal-intro ::selection { background: var(--intro-dusk); color: var(--intro-text); }
+
+.intro-shell {
+  width: min(100%, 480px);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #3d518c80;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--intro-navy) 24%, var(--intro-midnight));
+  font-family: 'DM Mono', monospace;
+}
+.intro-identity {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  padding: 13px 18px;
+  border-bottom: 1px solid #3d518c45;
+  background: color-mix(in srgb, var(--intro-navy) 48%, var(--intro-midnight));
+}
+.intro-brand-mark { color: var(--intro-accent); font-size: 19px; line-height: 1; }
+.intro-identity > div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex: 1; min-width: 0; }
+.intro-name { margin: 0; font: 500 14px/1.4 'DM Mono', monospace; letter-spacing: -.02em; }
+.intro-role { margin: 0; color: var(--intro-secondary); font-size: 10px; line-height: 1.5; }
+
+/* This instance uses the branded header above in place of desktop window controls. */
+.intro-terminal-window { max-width: none; height: auto; max-height: none; overflow: hidden; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.intro-terminal-window .terminal-titlebar { display: none; }
+.intro-terminal-window pre { margin: 0; padding: 18px 18px 8px; min-height: 194px; font: inherit; white-space: pre-wrap; }
+.intro-terminal-window code { font: inherit; gap: 4px; overflow-wrap: anywhere; }
+.intro-terminal-line { min-height: 1.6em; line-height: 1.6; font-size: 12px; font-weight: 400; letter-spacing: 0; }
+.intro-command { color: var(--intro-text); margin-bottom: 6px; }
+.intro-command::before { content: '›'; display: inline-block; margin-right: 8px; color: var(--intro-accent); }
+.intro-output { color: var(--intro-secondary); }
+.intro-updated-file { padding-left: 14px; color: var(--intro-secondary); }
+.intro-success { display: flex; align-items: flex-start; gap: 6px; margin-top: 7px; padding-top: 10px; border-top: 1px solid #3d518c45; color: var(--intro-ice); }
+.intro-success span { min-width: 0; }
+.intro-success svg { flex-shrink: 0; margin-top: 1px; }
+.intro-static-text { color: var(--intro-text); line-height: 1.6; font-size: 12px; }
+.intro-footer { display: flex; justify-content: flex-end; padding: 0 10px 6px; font-size: 11px; }
+.intro-footer button { min-height: 36px; padding: 6px 8px; border: 0; border-radius: 4px; background: transparent; color: var(--intro-secondary); font: inherit; cursor: pointer; text-underline-offset: 4px; transition: color 150ms ease; }
+.intro-footer button:focus-visible { outline: 2px solid var(--intro-accent); outline-offset: 1px; }
+.intro-footer button:active { color: var(--intro-text); }
+@media (hover: hover) { .intro-footer button:hover { color: var(--intro-ice); text-decoration: underline; } }
+@media (max-width: 400px) {
+  .intro-identity { padding: 12px 14px; }
+  .intro-identity > div { flex-wrap: wrap; gap: 1px 12px; }
+  .intro-terminal-window pre { padding: 14px 14px 6px; min-height: 211px; }
+}
+@media (pointer: coarse) { .intro-footer button { min-height: 44px; min-width: 44px; } }
+@media (prefers-reduced-motion: reduce) { #terminal-intro, .intro-footer button { transition: none; } }
+.intro-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

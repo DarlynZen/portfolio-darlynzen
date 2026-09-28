@@ -1,0 +1,22 @@
+---
+import ProjectFolder from '../components/astro/ProjectFolder.astro';
+
+// Add one entry per project. Optional fields: href, image and tone.
+const projects = [
+  {
+    title: 'Portafolio personal',
+    category: 'Desarrollo web',
+    description: 'Mi espacio personal para compartir proyectos y experiencia, con una identidad visual nocturna, una introducción de terminal y detalles interactivos.',
+    technologies: ['Astro', 'React', 'Tailwind CSS'],
+  },
+];
+---
+
+<section id="proyectos" class="box-border w-full scroll-mt-20 bg-midnight-black px-6 py-20 text-cold-white md:px-12 md:py-24" aria-labelledby="proyectos-title">
+  <div class="mx-auto w-full max-w-6xl">
+    <h2 id="proyectos-title" class="m-0 mb-10 font-melodrame text-5xl font-normal leading-tight sm:mb-12 sm:text-6xl">Mis proyectos</h2>
+    <div class="grid grid-cols-1 items-start gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      {projects.map((project, index) => <ProjectFolder {...project} number={index + 1} />)}
+    </div>
+  </div>
+</section>

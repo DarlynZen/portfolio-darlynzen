@@ -1,0 +1,23 @@
+---
+import InicioBackground from '../components/react/InicioBackground';
+---
+
+<section
+  id="inicio"
+  class="relative isolate grid min-h-dvh px-3 w-full min-w-0 box-border place-items-center overflow-hidden bg-midnight-black py-6 font-sans text-center text-cold-white selection:bg-dusk-blue selection:text-cold-white"
+  aria-labelledby="inicio-title"
+>
+  <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+    <InicioBackground client:only="react" />
+  </div>
+  <div class="relative z-10 mx-auto w-full min-w-0 max-w-4xl">
+    <h1 id="inicio-title" class="m-0 mb-6 font-melodrame text-4xl leading-tight font-normal text-balance sm:text-5xl lg:text-6xl">
+      Hola, soy Darlyn<svg class="ml-3 inline-block size-4 align-middle text-cornflower-blue sm:size-5 lg:ml-4 lg:size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M12 2c1.25 6.75 3.25 8.75 10 10-6.75 1.25-8.75 3.25-10 10C10.75 15.25 8.75 13.25 2 12c6.75-1.25 8.75-3.25 10-10Z" fill="currentColor" /></svg>
+    </h1>
+    <p class="mx-auto my-0 max-w-lg font-outfit text-base leading-7 text-pretty text-blue-gray">
+        <a>Ingeniera de Sistemas rumbo a conseguir bachiller. Soy </a>
+        <a class="underline underline-offset-2">fullstack web,</a>
+        <a>siempre busco el uso del buen diseño y buenas prácticas en el <span class="whitespace-nowrap">código<img src="/icons/code-line-duotone.svg" alt="" aria-hidden="true" width="20" height="20" class="ml-1 inline-block size-5 align-middle invert opacity-80" /></span></a>
+    </p>
+  </div>
+</section>
