@@ -7,46 +7,67 @@ interface Props {
   number?: number;
   href?: string;
   image?: string;
+  images?: { src: string; alt: string }[];
   tone?: 'blue' | 'violet' | 'ice';
 }
-
-const { title, category, href, image, tone = 'blue' } = Astro.props;
-const tones = {
-  blue: 'from-dusk-blue via-deep-navy to-midnight-black',
-  violet: 'from-persian-blue/50 via-deep-navy to-midnight-black',
-  ice: 'from-icy-blue/40 via-dusk-blue to-deep-navy',
-};
+const { title, category, href, image, images = [] } = Astro.props;
+const previews = images.length ? images.slice(0, 3) : image ? [{ src: image, alt: `Vista previa de ${title}` }] : [];
+const positions = [
+  'z-10 -translate-x-3/4 -rotate-6 group-aria-expanded:-translate-y-12 group-aria-expanded:-rotate-12',
+  'z-20 -translate-x-1/2 group-aria-expanded:-translate-y-20',
+  'z-30 -translate-x-1/4 rotate-6 group-aria-expanded:-translate-y-10 group-aria-expanded:rotate-12',
+];
 ---
 
-<article class="w-full min-w-0 max-w-96 font-outfit">
-  <div class="overflow-hidden rounded-2xl border border-solid border-dusk-blue/40 bg-deep-navy p-1">
-    <div class:list={['relative h-56 overflow-hidden rounded-t-xl bg-linear-to-br', tones[tone]]}>
-      {image ? (
-        <img src={image} alt={`Vista previa de ${title}`} loading="lazy" decoding="async" class="h-full w-full object-cover" />
-      ) : (
-        <div class="flex h-full items-center justify-center text-icy-blue/60" aria-hidden="true">
-          <svg class="size-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m7 7-5 5 5 5m10-10 5 5-5 5M14 4l-4 16" />
-          </svg>
-        </div>
-      )}
-    </div>
+<project-folder class="block w-full min-w-0 max-w-96 font-outfit">
+  <button type="button" data-folder-toggle aria-expanded="false" aria-label={`Mostrar u ocultar las vistas previas de ${title}`} class="group relative isolate block h-80 w-full cursor-pointer appearance-none rounded-2xl border-0 bg-transparent p-0 text-left font-outfit focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cornflower-blue">
+    <!-- The back tab stays still while the preview sheets fan out. -->
+    <svg class="absolute inset-x-0 bottom-0 h-64 w-full text-dusk-blue" viewBox="0 0 400 300" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
+      <path d="M0 26C0 12 12 0 26 0H152C170 0 178 10 180 27C182 44 193 54 213 54H374C388 54 400 66 400 80V274C400 288 388 300 374 300H26C12 300 0 288 0 274Z" />
+    </svg>
 
-    <div class="relative -mt-7">
-      <svg class="absolute inset-x-0 top-0 h-8 w-full text-deep-navy" viewBox="0 0 400 32" preserveAspectRatio="none" fill="currentColor" aria-hidden="true" focusable="false">
-        <path d="M0 20C0 9 9 0 20 0H170C182 0 189 6 193 15C197 24 204 28 218 28H380C391 28 400 30 400 32H0Z" />
-      </svg>
-      <p class="relative m-0 box-border h-8 w-2/5 truncate px-4 pt-2 text-xs leading-4 text-blue-gray" title={category}>{category}</p>
-      <div class="relative rounded-b-xl bg-deep-navy px-4 pt-3 pb-4">
-        <h3 class="m-0 text-lg font-medium leading-6 text-cold-white">
-          {href ? (
-            <a href={href} class="flex min-h-8 items-center justify-between gap-3 rounded-sm text-inherit no-underline hover:text-icy-blue focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cornflower-blue">
-              <span>{title}</span>
-              <svg class="size-4 shrink-0 text-cornflower-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            </a>
-          ) : title}
-        </h3>
-      </div>
-    </div>
-  </div>
-</article>
+    {[0, 1, 2].map((index) => (
+      <span class:list={['pointer-events-none absolute top-28 left-1/2 block h-40 w-2/3 overflow-hidden rounded-lg border border-solid border-dusk-blue bg-midnight-black shadow-lg transition-transform duration-300 ease-out motion-reduce:transition-none', positions[index]]}>
+        {previews[index] ? (
+          <img src={previews[index].src} alt={previews[index].alt} loading="lazy" decoding="async" class="block h-full w-full object-cover" />
+        ) : (
+          <span class="flex h-full flex-col items-center justify-center gap-3 bg-deep-navy text-blue-gray">
+            <svg class="size-7 text-cornflower-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="8" cy="8" r="1.5" /><path d="m3 17 5-5 4 4 4-6 5 7" stroke-linejoin="round" /></svg>
+            <span class="text-xs">Vista {index + 1} · Sin imagen</span>
+          </span>
+        )}
+      </span>
+    ))}
+
+    <span class="pointer-events-none absolute inset-x-0 bottom-0 z-40 flex h-48 box-border flex-col justify-end gap-1 rounded-2xl border border-solid border-cornflower-blue/20 bg-deep-navy/80 p-5 backdrop-blur-xl transition-colors duration-200 group-hover:border-cornflower-blue/40 motion-reduce:transition-none">
+      <span class="flex items-center justify-between gap-3 text-lg font-medium leading-6 text-cold-white">
+        <span>{title}</span>
+        <svg class="size-4 shrink-0 text-icy-blue group-aria-expanded:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 14 6-6 6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </span>
+      <span class="text-sm font-light leading-5 text-blue-gray">{category}</span>
+    </span>
+  </button>
+  {href && <a href={href} class="mt-2 inline-flex min-h-11 items-center rounded-sm text-sm text-icy-blue underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cornflower-blue">Visitar proyecto</a>}
+</project-folder>
+
+<script>
+  class ProjectFolder extends HTMLElement {
+    private controller?: AbortController;
+
+    connectedCallback() {
+      this.controller?.abort();
+      this.controller = new AbortController();
+      const button = this.querySelector<HTMLButtonElement>('[data-folder-toggle]');
+      if (!button) return;
+      button.addEventListener('click', () => {
+        button.setAttribute('aria-expanded', String(button.getAttribute('aria-expanded') !== 'true'));
+      }, { signal: this.controller.signal });
+      button.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') button.setAttribute('aria-expanded', 'false');
+      }, { signal: this.controller.signal });
+    }
+
+    disconnectedCallback() { this.controller?.abort(); }
+  }
+  if (!customElements.get('project-folder')) customElements.define('project-folder', ProjectFolder);
+</script>
