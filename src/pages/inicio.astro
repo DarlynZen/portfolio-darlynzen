@@ -1,5 +1,7 @@
 ---
 import InicioBackground from '../components/react/InicioBackground';
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <section
@@ -17,7 +19,7 @@ import InicioBackground from '../components/react/InicioBackground';
     <p class="mx-auto my-0 max-w-lg font-outfit text-base leading-7 text-pretty text-blue-gray">
         <a>Ingeniera de Sistemas rumbo a conseguir bachiller. Soy </a>
         <a class="underline underline-offset-2">fullstack web,</a>
-        <a>siempre busco el uso del buen diseño y buenas prácticas en el <span class="whitespace-nowrap">código<img src="/icons/code-line-duotone.svg" alt="" aria-hidden="true" width="20" height="20" class="ml-1 inline-block size-5 align-middle invert opacity-80" /></span></a>
+        <a>siempre busco el uso del buen diseño y buenas prácticas en el <span class="whitespace-nowrap">código<img src={`${base}icons/code-line-duotone.svg`} alt="" aria-hidden="true" width="20" height="20" class="ml-1 inline-block size-5 align-middle invert opacity-80" /></span></a>
     </p>
   </div>
 </section>
