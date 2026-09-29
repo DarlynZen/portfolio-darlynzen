@@ -1,23 +1,30 @@
 ---
 import ProjectFolder from '../components/astro/ProjectFolder.astro';
+import { getCollection, getEntry } from 'astro:content';
 
-// Add up to three screenshots per project: images: [{ src: '/projects/example.webp', alt: 'Vista del proyecto' }].
-const projects = [
-  {
-    title: 'Portafolio personal',
-    category: 'Desarrollo web',
-    description: 'Mi espacio personal para compartir proyectos y experiencia, con una identidad visual nocturna, una introducción de terminal y detalles interactivos.',
-    technologies: ['Astro', 'React', 'Tailwind CSS'],
-    images: [],
-  },
-];
+const section = await getEntry('proyectos', '-index');
+if (!section || section.data.type !== 'section') {
+  throw new Error('Falta src/content/proyectos/-index.md con type: section.');
+}
+const entries = await getCollection('proyectos');
+const projects = entries
+  .flatMap(({ id, data }) => data.type === 'project' && !data.draft ? [{ id, ...data }] : [])
+  .sort((a, b) => a.order - b.order || a.id.localeCompare(b.id, 'es', { numeric: true }));
 ---
 
-<section id="proyectos" class="box-border w-full scroll-mt-20 bg-midnight-black px-6 py-20 text-cold-white md:px-12 md:py-24" aria-labelledby="proyectos-title">
+<section id="proyectos" class="box-border w-full scroll-mt-20 bg-deep-navy px-6 py-20 text-cold-white md:px-12 md:py-24" aria-labelledby="proyectos-title">
   <div class="mx-auto w-full max-w-6xl">
-    <h2 id="proyectos-title" class="m-0 mb-10 font-melodrame text-5xl font-normal leading-tight sm:mb-12 sm:text-6xl">Mis proyectos</h2>
+    <h2 id="proyectos-title" class="m-0 mb-10 font-melodrame text-5xl font-normal leading-tight sm:mb-12 sm:text-6xl">{section.data.title}</h2>
+    {section.data.description && <p class="m-0 mb-8 max-w-2xl font-outfit text-base leading-7 text-blue-gray">{section.data.description}</p>}
     <div class="grid grid-cols-1 items-start gap-6 sm:grid-cols-2 xl:grid-cols-3">
-      {projects.map((project, index) => <ProjectFolder {...project} number={index + 1} />)}
+      {projects.map((project, index) => <ProjectFolder
+        title={project.title}
+        category={project.category}
+        href={project.href}
+        number={index + 1}
+        image={project.coverImage?.src}
+        images={project.galleryImages.map(({ image, alt }) => ({ src: image.src, alt }))}
+      />)}
     </div>
   </div>
 </section>
