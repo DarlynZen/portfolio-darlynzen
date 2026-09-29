@@ -20,6 +20,7 @@ const projects = entries
       {projects.map((project, index) => <ProjectFolder
         title={project.title}
         category={project.category}
+        description={project.description}
         href={project.href}
         number={index + 1}
         image={project.coverImage?.src}

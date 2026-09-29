@@ -10,43 +10,62 @@ interface Props {
   images?: { src: string; alt: string }[];
   tone?: 'blue' | 'violet' | 'ice';
 }
-const { title, category, href, image, images = [] } = Astro.props;
+const { title, category, description, number = 1, href, image, images = [] } = Astro.props;
+const accents = [
+  'bg-folder-lavender/15 text-folder-lavender',
+  'bg-folder-rose/15 text-folder-rose',
+  'bg-folder-sage/15 text-folder-sage',
+];
+const paletteIndex = (number - 1) % accents.length;
+const accent = accents[paletteIndex];
+const backs = ['text-folder-plum', 'text-folder-wine', 'text-folder-forest'];
+const fronts = [
+  'bg-folder-lavender/15 border-folder-lavender/30 hover:border-folder-lavender/50',
+  'bg-folder-rose/15 border-folder-rose/30 hover:border-folder-rose/50',
+  'bg-folder-sage/15 border-folder-sage/30 hover:border-folder-sage/50',
+];
 const previews = images.length ? images.slice(0, 3) : image ? [{ src: image, alt: `Vista previa de ${title}` }] : [];
 const positions = [
-  'z-10 -translate-x-3/4 -rotate-6 group-aria-expanded:-translate-y-12 group-aria-expanded:-rotate-12',
-  'z-20 -translate-x-1/2 group-aria-expanded:-translate-y-20',
-  'z-30 -translate-x-1/4 rotate-6 group-aria-expanded:-translate-y-10 group-aria-expanded:rotate-12',
+  'z-10 -translate-x-3/4 -rotate-6 group-data-open:-translate-y-12 group-data-open:-rotate-12',
+  'z-20 -translate-x-1/2 group-data-open:-translate-y-20',
+  'z-30 -translate-x-1/4 rotate-6 group-data-open:-translate-y-10 group-data-open:rotate-12',
 ];
 ---
 
 <project-folder class="block w-full min-w-0 max-w-96 font-outfit">
-  <button type="button" data-folder-toggle aria-expanded="false" aria-label={`Mostrar u ocultar las vistas previas de ${title}`} class="group relative isolate block h-80 w-full cursor-pointer appearance-none rounded-2xl border-0 bg-transparent p-0 text-left font-outfit focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cornflower-blue">
+  <div data-folder-stage class="group relative isolate h-80 w-full">
     <!-- The back tab stays still while the preview sheets fan out. -->
-    <svg class="absolute inset-x-0 bottom-0 h-64 w-full text-dusk-blue" viewBox="0 0 400 300" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
-      <path d="M0 26C0 12 12 0 26 0H152C170 0 178 10 180 27C182 44 193 54 213 54H374C388 54 400 66 400 80V274C400 288 388 300 374 300H26C12 300 0 288 0 274Z" />
+    <svg class:list={['absolute inset-x-0 bottom-0 h-64 w-full', backs[paletteIndex]]} viewBox="0 0 400 300" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
+      <path d="M0 26C0 12 12 0 26 0H108C124 0 132 10 134 25C136 40 145 48 163 48H374C388 48 400 60 400 74V274C400 288 388 300 374 300H26C12 300 0 288 0 274Z" />
     </svg>
+    <span class:list={['absolute top-20 left-4 rounded-md px-2 py-1 font-dm-mono text-xs', accent]}>
+      {String(number).padStart(2, '0')} <span aria-hidden="true">✦</span>
+    </span>
 
     {[0, 1, 2].map((index) => (
-      <span class:list={['pointer-events-none absolute top-28 left-1/2 block h-40 w-2/3 overflow-hidden rounded-lg border border-solid border-dusk-blue bg-midnight-black shadow-lg transition-transform duration-300 ease-out motion-reduce:transition-none', positions[index]]}>
+      <div class:list={['pointer-events-none absolute top-28 left-1/2 h-44 w-2/3 transition-transform duration-200 ease-folder motion-reduce:transition-none', positions[index]]}>
+        <button type="button" data-folder-preview aria-pressed="false" aria-label={`Seleccionar ${previews[index]?.alt ?? `vista ${index + 1}`} de ${title}`} disabled class="block h-full w-full cursor-pointer overflow-hidden rounded-lg border border-solid border-white/20 bg-midnight-black p-0 shadow-lg transition-transform duration-200 ease-folder group-data-open:pointer-events-auto aria-pressed:-translate-y-6 aria-pressed:border-cold-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-icy-blue focus-visible:transition-none motion-reduce:transition-none">
         {previews[index] ? (
           <img src={previews[index].src} alt={previews[index].alt} loading="lazy" decoding="async" class="block h-full w-full object-cover" />
         ) : (
-          <span class="flex h-full flex-col items-center justify-center gap-3 bg-deep-navy text-blue-gray">
-            <svg class="size-7 text-cornflower-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="8" cy="8" r="1.5" /><path d="m3 17 5-5 4 4 4-6 5 7" stroke-linejoin="round" /></svg>
+          <span class:list={['flex h-full flex-col items-center justify-center gap-3', accent]}>
+            <svg class="size-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="8" cy="8" r="1.5" /><path d="m3 17 5-5 4 4 4-6 5 7" stroke-linejoin="round" /></svg>
             <span class="text-xs">Vista {index + 1} · Sin imagen</span>
           </span>
         )}
-      </span>
+        </button>
+      </div>
     ))}
 
-    <span class="pointer-events-none absolute inset-x-0 bottom-0 z-40 flex h-48 box-border flex-col justify-end gap-1 rounded-2xl border border-solid border-cornflower-blue/20 bg-deep-navy/80 p-5 backdrop-blur-xl transition-colors duration-200 group-hover:border-cornflower-blue/40 motion-reduce:transition-none">
-      <span class="flex items-center justify-between gap-3 text-lg font-medium leading-6 text-cold-white">
+    <button type="button" data-folder-toggle aria-expanded="false" aria-label={`Mostrar u ocultar las vistas previas de ${title}`} class:list={['absolute inset-x-0 bottom-0 z-40 flex h-36 box-border w-full cursor-pointer appearance-none flex-col justify-end gap-2 rounded-2xl border border-solid  p-4 text-left font-outfit shadow-lg backdrop-blur-lg transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cornflower-blue motion-reduce:transition-none', fronts[paletteIndex]]}>
+      <span class:list={['w-fit rounded-md px-2 py-1 text-xs leading-4', accent]}>{category}</span>
+      <span class="flex w-full items-center justify-between gap-3 text-lg font-medium leading-6 text-cold-white">
         <span>{title}</span>
-        <svg class="size-4 shrink-0 text-icy-blue group-aria-expanded:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 14 6-6 6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        <svg class="size-4 shrink-0 text-cold-white/80 group-data-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 14 6-6 6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
       </span>
-      <span class="text-sm font-light leading-5 text-blue-gray">{category}</span>
-    </span>
-  </button>
+      {description && <span class="line-clamp-2 text-sm font-light leading-5 text-cold-white/80">{description}</span>}
+    </button>
+  </div>
   {href && <a href={href} class="mt-2 inline-flex min-h-11 items-center rounded-sm text-sm text-icy-blue underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cornflower-blue">Visitar proyecto</a>}
 </project-folder>
 
@@ -59,11 +78,29 @@ const positions = [
       this.controller = new AbortController();
       const button = this.querySelector<HTMLButtonElement>('[data-folder-toggle]');
       if (!button) return;
+      const stage = this.querySelector<HTMLElement>('[data-folder-stage]');
+      const previews = Array.from(this.querySelectorAll<HTMLButtonElement>('[data-folder-preview]'));
+      const setOpen = (open: boolean) => {
+        button.setAttribute('aria-expanded', String(open));
+        stage?.toggleAttribute('data-open', open);
+        previews.forEach((preview) => {
+          preview.disabled = !open;
+          if (!open) preview.setAttribute('aria-pressed', 'false');
+        });
+      };
       button.addEventListener('click', () => {
-        button.setAttribute('aria-expanded', String(button.getAttribute('aria-expanded') !== 'true'));
+        setOpen(button.getAttribute('aria-expanded') !== 'true');
       }, { signal: this.controller.signal });
-      button.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') button.setAttribute('aria-expanded', 'false');
+      previews.forEach((preview) => {
+        preview.addEventListener('click', () => {
+          previews.forEach((item) => item.setAttribute('aria-pressed', String(item === preview)));
+        }, { signal: this.controller!.signal });
+      });
+      this.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          button.focus();
+          setOpen(false);
+        }
       }, { signal: this.controller.signal });
     }
 

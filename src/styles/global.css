@@ -23,6 +23,13 @@
   --color-blue-gray: #AAB5D6;
   --color-muted-blue-gray: #7180A5;
   --color-light-blue-gray: #D1D9F0;
+  --color-folder-plum: #30213F;
+  --color-folder-wine: #3C2334;
+  --color-folder-forest: #20382F;
+  --color-folder-lavender: #C4B5DC;
+  --color-folder-rose: #D8ADB7;
+  --color-folder-sage: #AFC6B4;
+  --ease-folder: cubic-bezier(0.23, 1, 0.32, 1);
   /* Keep all breakpoints in px so responsive variants sort consistently. */
   --breakpoint-*: initial;
   --breakpoint-sm: 500px;
