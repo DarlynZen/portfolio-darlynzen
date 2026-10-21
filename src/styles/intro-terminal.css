@@ -3,14 +3,14 @@ html.terminal-intro-active #portfolio-content { visibility: hidden; }
 html.terminal-intro-revealing #portfolio-content { visibility: visible; }
 
 #terminal-intro {
-  --intro-midnight: #05091c;
-  --intro-navy: #091540;
-  --intro-dusk: #3d518c;
-  --intro-accent: #7692ff;
-  --intro-ice: #abd2fa;
-  --intro-text: #f4f7ff;
-  --intro-secondary: #aab5d6;
-  --intro-muted: #7180a5;
+  --intro-midnight: #0f0217;
+  --intro-navy: #0b0211;
+  --intro-dusk: #44374a;
+  --intro-accent: #d262ff;
+  --intro-ice: #ffffff;
+  --intro-text: #ffffff;
+  --intro-secondary: #b7b3b9;
+  --intro-muted: #6f6774;
   display: none;
   position: fixed;
   inset: 0;
@@ -33,7 +33,7 @@ html.terminal-intro-active #terminal-intro { display: grid; }
   width: min(100%, 480px);
   min-width: 0;
   overflow: hidden;
-  border: 1px solid #3d518c80;
+  border: 1px solid #44374a80;
   border-radius: 12px;
   background: color-mix(in srgb, var(--intro-navy) 24%, var(--intro-midnight));
   font-family: 'DM Mono', monospace;
@@ -44,7 +44,7 @@ html.terminal-intro-active #terminal-intro { display: grid; }
   gap: 9px;
   margin: 0;
   padding: 13px 18px;
-  border-bottom: 1px solid #3d518c45;
+  border-bottom: 1px solid #44374a45;
   background: color-mix(in srgb, var(--intro-navy) 48%, var(--intro-midnight));
 }
 .intro-brand-mark { color: var(--intro-accent); font-size: 19px; line-height: 1; }
@@ -62,7 +62,7 @@ html.terminal-intro-active #terminal-intro { display: grid; }
 .intro-command::before { content: '›'; display: inline-block; margin-right: 8px; color: var(--intro-accent); }
 .intro-output { color: var(--intro-secondary); }
 .intro-updated-file { padding-left: 14px; color: var(--intro-secondary); }
-.intro-success { display: flex; align-items: flex-start; gap: 6px; margin-top: 7px; padding-top: 10px; border-top: 1px solid #3d518c45; color: var(--intro-ice); }
+.intro-success { display: flex; align-items: flex-start; gap: 6px; margin-top: 7px; padding-top: 10px; border-top: 1px solid #44374a45; color: var(--intro-ice); }
 .intro-success span { min-width: 0; }
 .intro-success svg { flex-shrink: 0; margin-top: 1px; }
 .intro-static-text { color: var(--intro-text); line-height: 1.6; font-size: 12px; }

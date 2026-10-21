@@ -42,8 +42,8 @@ export default function InicioBackground() {
       <BackgroundFallback>
         {ready && <Dither paused={paused} waveSpeed={0.025} waveFrequency={1.6}
           waveAmplitude={0.15} colorNum={3.1} pixelSize={2}
-          waveColor={[65 / 255, 58 / 255, 112 / 255]}
-          backgroundColor={[5 / 255, 9 / 255, 28 / 255]}
+          waveColor={[106 / 255, 23 / 255, 145 / 255]}
+          backgroundColor={[15 / 255, 2 / 255, 23 / 255]}
           enableMouseInteraction={false} mouseRadius={0.1} />}
       </BackgroundFallback>
     </div>

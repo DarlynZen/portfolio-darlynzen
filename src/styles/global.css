@@ -7,28 +7,28 @@
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 
-/* Tailwind v4 theme: palette from VISUAL_IDENTITY.md. */
+/* Tailwind v4 theme: palette from DESIGN.md. */
 @theme {
   --font-melodrame: 'Relationship of Melodrame', sans-serif;
   --font-noto-sans: 'Noto Sans', sans-serif;
   --font-outfit: 'Outfit', sans-serif;
   --font-dm-mono: 'DM Mono', monospace;
-  --color-midnight-black: #05091C;
-  --color-deep-navy: #091540;
-  --color-dusk-blue: #3D518C;
-  --color-persian-blue: #1B2CC1;
-  --color-cornflower-blue: #7692FF;
-  --color-icy-blue: #ABD2FA;
-  --color-cold-white: #F4F7FF;
-  --color-blue-gray: #AAB5D6;
-  --color-muted-blue-gray: #7180A5;
-  --color-light-blue-gray: #D1D9F0;
-  --color-folder-plum: #30213F;
-  --color-folder-wine: #3C2334;
-  --color-folder-forest: #20382F;
-  --color-folder-lavender: #C4B5DC;
-  --color-folder-rose: #D8ADB7;
-  --color-folder-sage: #AFC6B4;
+  --color-midnight-black: #0F0217;
+  --color-deep-navy: #0B0211;
+  --color-dusk-blue: #44374A;
+  --color-persian-blue: #6A1791;
+  --color-cornflower-blue: #D262FF;
+  --color-icy-blue: #FFFFFF;
+  --color-cold-white: #FFFFFF;
+  --color-blue-gray: #B7B3B9;
+  --color-muted-blue-gray: #6F6774;
+  --color-light-blue-gray: #F0F0F0;
+  --color-folder-plum: #2D063A;
+  --color-folder-wine: #180321;
+  --color-folder-forest: #2D063A;
+  --color-folder-lavender: #D262FF;
+  --color-folder-rose: #D97757;
+  --color-folder-sage: #B7B3B9;
   --ease-folder: cubic-bezier(0.23, 1, 0.32, 1);
   /* Keep all breakpoints in px so responsive variants sort consistently. */
   --breakpoint-*: initial;
@@ -43,6 +43,26 @@
 @theme inline {
   --color-background: var(--color-midnight-black);
   --color-border: var(--color-dusk-blue);
+}
+
+:root {
+  color-scheme: dark;
+  --color-void-plum: #0F0217;
+  --color-eclipse-black: #0B0211;
+  --color-carbon-ink: #111111;
+  --color-lavender-mist: #44374A;
+  --color-ghost-violet: #4B4151;
+  --color-ash-wisp: #6F6774;
+  --color-silver-smoke: #B7B3B9;
+  --color-moonstone: #999999;
+  --color-paper-white: #FFFFFF;
+  --color-bone: #F7F6F5;
+  --color-frost: #F0F0F0;
+  --color-laser-violet: #D262FF;
+  --color-royal-plum: #6A1791;
+  --color-merlot-shadow: #2D063A;
+  --color-mulberry-deep: #180321;
+  --color-coral-spark: #D97757;
 }
 
 
